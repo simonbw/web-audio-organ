@@ -5,9 +5,9 @@
     <title>Organ</title>
     <style type="text/css">
       html, body {
+        background: #111;
         margin: 0;
         padding: 0;
-        background: #000;
       }
 
       * {
@@ -21,7 +21,9 @@
         display: flex;
         flex-flow: row nowrap;
         height: 100vh;
-        position: relative;
+        left: 0;
+        position: absolute;
+        top: 0;
         width: 100%;
       }
 
@@ -30,8 +32,29 @@
         flex-basis: 0;
         flex-grow: 1;
       }
+
+      .Instructions {
+        color: #DDD;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.5;
+        text-align: right;
+        padding: 10px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 1000;
+      }
     </style>
     <script src="dist/bundle.js"></script>
   </head>
-  <body></body>
+  <body>
+    <div class="Instructions">
+      Digits 1-9 at the top of your keyboard enable and disable stops. <br>
+      Keys on your home row are white keys. <br>
+      Keys above your home row are black keys. <br>
+      The furthest left key in your home row (A on a QWERTY keyboard) is an A. <br>
+      <a href="https://github.com/simonbw/web-audio-organ">Github</a>
+    </div>
+  </body>
 </html>
