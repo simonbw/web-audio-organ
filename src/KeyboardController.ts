@@ -3,13 +3,15 @@ import Organ from "./Organ";
 export default class KeyboardController {
     constructor(organ: Organ) {
         document.addEventListener('keydown', (event) => {
-            const pitch = this.keyToPitch(event.code);
-            if (pitch !== null) {
-                organ.play(pitch);
-            }
-            const rank = this.keyToRank(event.code);
-            if (rank !== null) {
-                organ.toggleRank(rank);
+            if (!event.ctrlKey && !event.metaKey && !event.altKey) {
+                const pitch = this.keyToPitch(event.code);
+                if (pitch !== null) {
+                    organ.play(pitch);
+                }
+                const rank = this.keyToRank(event.code);
+                if (rank !== null) {
+                    organ.toggleRank(rank);
+                }
             }
         });
         document.addEventListener('keyup', (event) => {
