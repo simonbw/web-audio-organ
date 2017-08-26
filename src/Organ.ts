@@ -1,6 +1,6 @@
-import { pitchToFrequency } from './util';
+import { pitchToFrequency, clamp } from './util';
 
-// TODO: Don't have so many oscillators all the time.
+// TODO: Don't have so many oscillators all the time. And figure out other ways to reduce computation.
 
 /**
  * An organ is a collection of ranks.
@@ -16,18 +16,19 @@ export default class Organ {
         const tremulatorOscillator = context.createOscillator();
         tremulatorOscillator.frequency.value = 3.0;
         tremulatorOscillator.start();
-        const tremulator = context.createGain();
-        tremulatorOscillator.connect(tremulator);
-        tremulator.gain.value = 0.2;
+        const tremulatorStrength = context.createGain();
+        tremulatorOscillator.connect(tremulatorStrength);
+        tremulatorStrength.gain.value = 0.2;
 
         this.activeRanks = [];
         this.ranks = [];
-        this.ranks.push(new Rank(context, tremulator, -36));
-        this.ranks.push(new Rank(context, tremulator, -24));
-        this.ranks.push(new Rank(context, tremulator, -12));
-        this.ranks.push(new Rank(context, tremulator, 0));
-        this.ranks.push(new Rank(context, tremulator, 12));
-        this.ranks.push(new Rank(context, tremulator, 24));
+        this.ranks.push(new Rank(context, tremulatorStrength, -36));
+        this.ranks.push(new Rank(context, tremulatorStrength, -24));
+        this.ranks.push(new Rank(context, tremulatorStrength, -12));
+        this.ranks.push(new Rank(context, tremulatorStrength, 0));
+        this.ranks.push(new Rank(context, tremulatorStrength, 12));
+        this.ranks.push(new Rank(context, tremulatorStrength, 24));
+        // this.ranks.push(new Rank(context, tremulatorStrength, 36));
         this.ranks.forEach((rank) => rank.output.connect(this.output))
     }
 
@@ -124,10 +125,12 @@ class Pipe {
     private pitch: number;
     private highpass: BiquadFilterNode;
     private playing: boolean;
+    private maxGain: number;
 
     constructor(context: AudioContext, pitch: number, tremulator: AudioNode) {
         this.pitch = pitch;
         this.playing = false;
+        this.maxGain = 0.1;
 
         this.gain = context.createGain(); // Main volume control
         this.gain.gain.value = 0;
@@ -188,27 +191,47 @@ class Pipe {
         return context.createPeriodicWave(real, imag, {disableNormalization: true});
     }
 
-    private getAttack(): number {
-        return 0.08; // TODO: Based on pitch
+    /**
+     * @return {number} time to warm up
+     */
+    private getAttackLength(currentGain: number): number {
+        const percent = clamp((this.pitch + 36) / 72, 0, 1.0) ** 1.5; // [0.0, 1.0]
+        const maxLength = 0.5 / (1.0 + 19 * percent); // [0.025, 0.5]
+        return (1.0 - currentGain / this.maxGain) * maxLength;
     }
 
-    private getDecay(): number {
-        return 0.12; // TODO: Based on pitch
+    /**
+     * @return {number} time to cool down
+     */
+    private getDecayLength(currentGain: number): number {
+        const percent = clamp((this.pitch + 36) / 72, 0, 1.0) ** 1.5; // [0.0, 1.0]
+        const maxLength = 0.5 / (1.0 + 19 * percent); // [0.025, 0.5]
+        return (currentGain / this.maxGain) * maxLength;
     }
 
     public play() {
         if (!this.playing) {
             this.playing = true;
             console.log('pipe played');
-            this.gain.gain.setTargetAtTime(0.1, this.output.context.currentTime, this.getAttack());
+
+            const now = this.output.context.currentTime;
+            const currentGain = this.gain.gain.value;
+            this.gain.gain.cancelScheduledValues(now);
+            this.gain.gain.setValueAtTime(currentGain, now);
+            this.gain.gain.linearRampToValueAtTime(this.maxGain, now + this.getAttackLength(currentGain));
         }
     }
 
     public stop() {
         if (this.playing) {
-            console.log('pipe stopped');
-            this.gain.gain.setTargetAtTime(0, this.output.context.currentTime, this.getDecay());
             this.playing = false;
+            console.log('pipe stopped');
+
+            const now = this.output.context.currentTime;
+            const currentGain = this.gain.gain.value;
+            this.gain.gain.cancelScheduledValues(now);
+            this.gain.gain.setValueAtTime(currentGain, now);
+            this.gain.gain.linearRampToValueAtTime(0, now + this.getDecayLength(currentGain));
         }
     }
 }
