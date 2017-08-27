@@ -18,9 +18,12 @@ window.addEventListener('load', () => {
     document.body.appendChild(visualizer.element);
 
     const wet = context.createGain();
-    wet.gain.value = 1.0;
     const dry = context.createGain();
-    dry.gain.value = 0.0;
+
+    function setReverbAmount(amount: number) {
+        wet.gain.setTargetAtTime(amount, context.currentTime, 0.01);
+        dry.gain.setTargetAtTime(1.0 - amount, context.currentTime, 0.01);
+    }
 
     organ.output.connect(reverb);
     organ.output.connect(dry);
@@ -30,9 +33,11 @@ window.addEventListener('load', () => {
     dynamics.connect(visualizer.input);
     dynamics.connect(context.destination);
 
+    setReverbAmount(0.0); // Turn reverb off until sound loads
     loadSound(context, 'stalbans_a_ortf.wav')
         .then(audioBuffer => {
             reverb.buffer = audioBuffer;
+            setReverbAmount(1.0); // enable reverb once sound loads
         }).catch((error) => console.error(error));
 
     new KeyboardController(organ);
@@ -41,17 +46,15 @@ window.addEventListener('load', () => {
     window['organ'] = organ;
     window['context'] = context;
 
+
     document.addEventListener('keydown', (event) => {
         if (!event.ctrlKey && !event.metaKey && !event.altKey) {
             if (event.code == 'KeyZ') {
-                wet.gain.setTargetAtTime(0, context.currentTime, 0.01);
-                dry.gain.setTargetAtTime(1.0, context.currentTime, 0.01);
+                setReverbAmount(1.0);
             } else if (event.code == 'KeyX') {
-                wet.gain.setTargetAtTime(0.5, context.currentTime, 0.01);
-                dry.gain.setTargetAtTime(0.5, context.currentTime, 0.01);
+                setReverbAmount(0.5);
             } else if (event.code == 'KeyC') {
-                wet.gain.setTargetAtTime(1.0, context.currentTime, 0.01);
-                dry.gain.setTargetAtTime(0.0, context.currentTime, 0.01);
+                setReverbAmount(0.0);
             }
         }
     });
