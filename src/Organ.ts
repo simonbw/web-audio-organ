@@ -132,7 +132,6 @@ class Pipe {
     public output: AudioNode;
     private gain: GainNode;
     private pitch: number;
-    private highpass: BiquadFilterNode;
     private playing: boolean;
     private maxGain: number;
 
@@ -145,7 +144,6 @@ class Pipe {
         this.gain.gain.value = 0;
         this.output = this.gain;
 
-        this.highpass = context.createBiquadFilter();
 
         // Creates the sound
         const oscillator = context.createOscillator();
@@ -165,12 +163,14 @@ class Pipe {
         tremulator.connect(vibratoPitchStrength);
         // vibratoPitchStrength.connect(oscillator.detune); // causes stuttering for some reason
 
+        // Left/Right pan
+        const panner = context.createStereoPanner();
+        panner.pan.value = clamp(this.pitch / 48, -1.0, 1.0);
+
         oscillator.connect(tremelo);
         oscillator.start();
-
-        // tremelo.connect(this.highpass); // causes stuttering for some reason
-        // this.highpass.connect(this.gain);
-        tremelo.connect(this.gain);
+        tremelo.connect(panner);
+        panner.connect(this.gain);
     }
 
     /**

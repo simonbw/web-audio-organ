@@ -21,8 +21,8 @@ window.addEventListener('load', () => {
     const dry = context.createGain();
 
     function setReverbAmount(amount: number) {
-        wet.gain.setTargetAtTime(amount, context.currentTime, 0.01);
-        dry.gain.setTargetAtTime(1.0 - amount, context.currentTime, 0.01);
+        wet.gain.setTargetAtTime(Math.sqrt(amount), context.currentTime, 0.01);
+        dry.gain.setTargetAtTime(Math.sqrt(1.0 - amount), context.currentTime, 0.01);
     }
 
     organ.output.connect(reverb);
