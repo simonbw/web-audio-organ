@@ -6,6 +6,10 @@
     <style type="text/css">
       html, body {
         background: #111;
+        color: #DDD;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.5;
         margin: 0;
         padding: 0;
       }
@@ -33,17 +37,21 @@
         flex-grow: 1;
       }
 
-      .Instructions {
-        color: #DDD;
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        font-size: 14px;
-        line-height: 1.5;
+      .Instructions,
+      .Licenses {
         text-align: right;
         padding: 10px;
         position: absolute;
         right: 0;
-        top: 0;
         z-index: 1000;
+      }
+
+      .Instructions {
+        top: 0;
+      }
+
+      .Licenses {
+        bottom: 0;
       }
     </style>
     <script src="dist/bundle.js"></script>
@@ -55,6 +63,19 @@
       Keys above your home row are black keys. <br>
       The furthest left key in your home row (A on a QWERTY keyboard) is an A. <br>
       <a href="https://github.com/simonbw/web-audio-organ">Github</a>
+    </div>
+    <div class="Licenses">
+      The impulse response used for the reverb is licensed under the
+      <a href="https://creativecommons.org/licenses/by-sa/3.0/legalcode">CC-SA 3.0</a>
+      and created by: <br>
+
+      <a href="http://www.openairlib.net/auralizationdb/content/lady-chapel-st-albans-cathedral">www.openairlib.net</a><br>
+      Audiolab, University of York<br>
+      Marcin Gorzel<br>
+      Gavin Kearney<br>
+      Aglaia Foteinou<br>
+      Sorrel Hoare<br>
+      Simon Shelley<br>
     </div>
   </body>
 </html>

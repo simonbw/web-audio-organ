@@ -11,7 +11,8 @@ export default class Organ {
     private activeRanks: Array<Rank>;
 
     constructor(context: AudioContext) {
-        this.output = context.createGain();
+        const gain = this.output = context.createGain();
+        gain.gain.value = 0.1;
 
         const tremulatorOscillator = context.createOscillator();
         tremulatorOscillator.frequency.value = 3.0;
@@ -22,12 +23,12 @@ export default class Organ {
 
         this.activeRanks = [];
         this.ranks = [];
-        this.ranks.push(new Rank(context, tremulatorStrength, -36));
-        this.ranks.push(new Rank(context, tremulatorStrength, -24));
-        this.ranks.push(new Rank(context, tremulatorStrength, -12));
-        this.ranks.push(new Rank(context, tremulatorStrength, 0));
-        this.ranks.push(new Rank(context, tremulatorStrength, 12));
-        this.ranks.push(new Rank(context, tremulatorStrength, 24));
+        this.ranks.push(new Rank(context, tremulatorStrength, -36, 2.0));
+        this.ranks.push(new Rank(context, tremulatorStrength, -24, 1.0));
+        this.ranks.push(new Rank(context, tremulatorStrength, -12, 1.0));
+        this.ranks.push(new Rank(context, tremulatorStrength, 0, 1.0));
+        this.ranks.push(new Rank(context, tremulatorStrength, 12, 0.7));
+        this.ranks.push(new Rank(context, tremulatorStrength, 24, 0.5));
         // this.ranks.push(new Rank(context, tremulatorStrength, 36));
         this.ranks.forEach((rank) => rank.output.connect(this.output))
     }
@@ -52,6 +53,14 @@ export default class Organ {
             this.activeRanks.push(rank);
             console.log(`Activate rank ${rankIndex}`);
         }
+    }
+
+    public activateRanks(...rankIndexes: Array<number>) {
+        rankIndexes.forEach((rankIndex) => this.activateRank(rankIndex));
+    }
+
+    public deactivateRanks(...rankIndexes: Array<number>) {
+        rankIndexes.forEach((rankIndex) => this.deactivateRank(rankIndex));
     }
 
     public deactivateRank(rankIndex: number): void {
@@ -91,9 +100,9 @@ class Rank {
     private pipes: { [pitch: number]: Pipe };
     public output: AudioNode;
 
-    constructor(context: AudioContext, tremulator: AudioNode, offset: number) {
+    constructor(context: AudioContext, tremulator: AudioNode, offset: number, gainAmount: number) {
         const gain = context.createGain();
-        gain.gain.value = 0.1;
+        gain.gain.value = gainAmount;
         this.output = gain;
 
         this.pipes = {};
@@ -154,12 +163,12 @@ class Pipe {
         const vibratoPitchStrength = context.createGain();
         vibratoPitchStrength.gain.value = 10.0;
         tremulator.connect(vibratoPitchStrength);
-        // vibratoPitchStrength.connect(oscillator.detune);
+        // vibratoPitchStrength.connect(oscillator.detune); // causes stuttering for some reason
 
         oscillator.connect(tremelo);
         oscillator.start();
 
-        // tremelo.connect(this.highpass);
+        // tremelo.connect(this.highpass); // causes stuttering for some reason
         // this.highpass.connect(this.gain);
         tremelo.connect(this.gain);
     }
@@ -196,7 +205,7 @@ class Pipe {
      */
     private getAttackLength(currentGain: number): number {
         const percent = clamp((this.pitch + 36) / 72, 0, 1.0) ** 1.5; // [0.0, 1.0]
-        const maxLength = 0.5 / (1.0 + 19 * percent); // [0.025, 0.5]
+        const maxLength = 0.2 / (1.0 + 19 * percent); // [0.01, 0.2]
         return (1.0 - currentGain / this.maxGain) * maxLength;
     }
 

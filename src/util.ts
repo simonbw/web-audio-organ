@@ -27,3 +27,15 @@ export function randomInt(min: number, max: number): number {
 export function clamp(value: number, min: number = -1.0, max: number = 1.0): number {
     return Math.max(Math.min(value, max), min);
 }
+
+/**
+ * Loads a sound from a filename.
+ * @param context
+ * @param filename
+ * @return {Promise<Response>}
+ */
+export function loadSound(context: AudioContext, filename: string): Promise<AudioBuffer> {
+    return fetch(`sounds/${filename}`)
+        .then((response: Response) => response.arrayBuffer())
+        .then((arrayBuffer: ArrayBuffer) => context.decodeAudioData(arrayBuffer));
+}
