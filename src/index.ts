@@ -1,12 +1,15 @@
-import Reverb from './audio/Reverb';
-import { bindKeysToOrgan, bindKeysToReverb } from "./KeyboardController";
+import React from "react";
+import ReactDOM from "react-dom";
 import Organ from "./audio/Organ";
+import Reverb from "./audio/Reverb";
+import Main from "./components/Main";
+
+declare const webkitAudioContext: { new(): AudioContext };
 
 window.addEventListener('load', () => {
-    const context: AudioContext = new AudioContext();
+    const context: AudioContext = new (AudioContext || webkitAudioContext)();
+    const masterGain = context.createGain();
     const organ = new Organ(context);
-    organ.activateRanks(0, 1, 2, 3, 4, 5);
-
     const reverb = new Reverb(context, 0.5);
 
     // Limit the volume
@@ -16,13 +19,15 @@ window.addEventListener('load', () => {
 
     organ.output.connect(reverb.input);
     reverb.output.connect(dynamics);
-    dynamics.connect(context.destination);
-
-    bindKeysToOrgan(organ);
-    bindKeysToReverb(reverb);
+    dynamics.connect(masterGain);
+    masterGain.connect(context.destination);
 
     // for debugging
     window['organ'] = organ;
     window['context'] = context;
 
+    ReactDOM.render(
+        React.createElement(Main, {organ, reverb, masterGain}),
+        document.getElementById('react-container')
+    );
 });

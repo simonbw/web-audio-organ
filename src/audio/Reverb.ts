@@ -1,10 +1,11 @@
-import { loadSound } from './util';
+import { getSound } from "./util";
 
 export default class Reverb {
     public input: AudioNode;
     public output: AudioNode;
-    private wet: GainNode;
+
     private dry: GainNode;
+    private wet: GainNode;
     private loaded: boolean;
 
     constructor(context: AudioContext, wetAmount: number = 1.0) {
@@ -21,7 +22,7 @@ export default class Reverb {
         convolver.connect(this.wet);
         this.wet.connect(this.output);
 
-        loadSound(context, 'stalbans_a_ortf.wav')
+        getSound(context, 'stalbans_a_ortf.wav')
             .then(audioBuffer => {
                 convolver.buffer = audioBuffer;
                 this.loaded = true;
@@ -37,5 +38,9 @@ export default class Reverb {
             this.wet.gain.setTargetAtTime(Math.sqrt(value), context.currentTime, 0.01);
             this.dry.gain.setTargetAtTime(Math.sqrt(1.0 - value), context.currentTime, 0.01);
         }
+    }
+
+    public isLoaded(): boolean {
+        return this.loaded;
     }
 }

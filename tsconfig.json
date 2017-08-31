@@ -1,5 +1,22 @@
 {
   "compilerOptions": {
-    "sourceMap": true
-  }
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "lib": [
+      "es6",
+      "dom"
+    ],
+    "module": "es6",
+    "moduleResolution": "node",
+    "outDir": "dist/",
+    "sourceMap": true,
+    "target": "es6"
+  },
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

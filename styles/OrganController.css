@@ -1,0 +1,19 @@
+.OrganController {
+
+}
+
+.RankToggle {
+    cursor: pointer;
+    display: inline-block;
+    padding: 5px 10px;
+    user-select: none;
+    border-bottom: 1px solid transparent;
+}
+
+.RankToggle.active {
+    background: #222;
+}
+
+.RankToggle:hover {
+    border-bottom-color: #DDD;
+}

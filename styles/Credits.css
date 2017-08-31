@@ -1,0 +1,9 @@
+.Credits {
+    border: 1px solid #EEE;
+    bottom: 0;
+    max-width: 200px;
+    position: absolute;
+    right: 0;
+    padding: 10px;
+    z-index: 100;
+}

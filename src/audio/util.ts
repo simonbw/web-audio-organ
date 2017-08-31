@@ -29,13 +29,22 @@ export function clamp(value: number, min: number = -1.0, max: number = 1.0): num
 }
 
 /**
- * Loads a sound from a filename.
+ * Save already loaded sounds.
+ * @type {{[string]: Promise<AudioBuffer>}}
+ */
+const sounds = {};
+
+/**
+ * Loads a sound from a filename. Uses cached version if already loaded.
  * @param context
  * @param filename
  * @return {Promise<Response>}
  */
-export function loadSound(context: AudioContext, filename: string): Promise<AudioBuffer> {
-    return fetch(`sounds/${filename}`)
-        .then((response: Response) => response.arrayBuffer())
-        .then((arrayBuffer: ArrayBuffer) => context.decodeAudioData(arrayBuffer));
+export function getSound(context: AudioContext, filename: string): Promise<AudioBuffer> {
+    if (sounds[filename] == null) {
+        sounds[filename] = fetch(`sounds/${filename}`)
+            .then((response: Response) => response.arrayBuffer())
+            .then((arrayBuffer: ArrayBuffer) => context.decodeAudioData(arrayBuffer));
+    }
+    return sounds[filename];
 }

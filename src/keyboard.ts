@@ -1,29 +1,7 @@
-import Organ from "./audio/Organ";
 import Reverb from "./audio/Reverb";
 
-export function bindKeysToOrgan(organ: Organ): void {
-    document.addEventListener('keydown', (event) => {
-        if (!event.ctrlKey && !event.metaKey && !event.altKey) {
-            const pitch = keyToPitch(event.code);
-            if (pitch !== null) {
-                organ.play(pitch);
-            }
-            const rank = keyToRank(event.code);
-            if (rank !== null) {
-                organ.toggleRank(rank);
-            }
-        }
-    });
-    document.addEventListener('keyup', (event) => {
-        const pitch = keyToPitch(event.code);
-        if (pitch !== null) {
-            organ.stop(pitch);
-        }
-    });
-}
-
 export function bindKeysToReverb(reverb: Reverb) {
-    document.addEventListener('keydown', (event) => {
+    document.addEventListener('keydown', (event: KeyboardEvent) => {
         if (!event.ctrlKey && !event.metaKey && !event.altKey) {
             if (event.code == 'KeyZ') {
                 reverb.setWet(1.0);
@@ -36,7 +14,7 @@ export function bindKeysToReverb(reverb: Reverb) {
     });
 }
 
-function keyToPitch(code): number {
+export function keyToPitch(code): number {
     const keyPosition = [
         'KeyQ', // G#
         'KeyA', // A
@@ -62,6 +40,7 @@ function keyToPitch(code): number {
         'Quote', // D
         'BracketRight', // D#
         'Enter', // E
+        'Backslash', // F
     ].indexOf(code);
     if (keyPosition >= 0) {
         return keyPosition - 1;
@@ -69,7 +48,7 @@ function keyToPitch(code): number {
     return null;
 }
 
-function keyToRank(code): number {
+export function keyToRank(code): number {
     const keyPosition = [
         'Digit1',
         'Digit2',
