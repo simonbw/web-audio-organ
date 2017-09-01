@@ -28,6 +28,7 @@ export default class ReverbController extends React.Component<propTypes, stateTy
                 }
             }
         });
+        this.props.reverb.onLoad(() => this.setReverbAmount(50));
     }
 
     setReverbAmount(value: number): void {
@@ -36,27 +37,30 @@ export default class ReverbController extends React.Component<propTypes, stateTy
     }
 
     public render() {
+        const loading = !this.props.reverb.isLoaded();
         return (
             <div>
                 <label>
                     Reverb
                     <Knob
-                        value={this.state.value}
-                        onChange={(value) => this.setReverbAmount(value)}
-                        onChangeEnd={(value) => this.setReverbAmount(value)}
-                        min={0.0}
-                        max={100}
-                        step={1}
-                        disableTextInput
                         angleArc={90 * 3}
                         angleOffset={90 * 2.5}
-                        title="Reverb"
-                        width={80}
+                        bgColor={loading ? "#666" : "#FFF"}
+                        disableTextInput
                         height={80}
-                        thickness={0.5}
-                        stopper={false}
+                        inputColor={loading ? "#666" : "#FFF"}
                         lineCap="butt"
-                        inputColor="#FFF"
+                        max={100}
+                        min={0.0}
+                        onChange={(value) => this.setReverbAmount(value)}
+                        onChangeEnd={(value) => this.setReverbAmount(value)}
+                        readOnly={loading}
+                        step={1}
+                        stopper={false}
+                        thickness={0.5}
+                        title="Reverb"
+                        value={this.state.value}
+                        width={80}
                     />
                 </label>
             </div>

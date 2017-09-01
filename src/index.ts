@@ -10,7 +10,7 @@ window.addEventListener('load', () => {
     const context: AudioContext = new (AudioContext || webkitAudioContext)();
     const masterGain = context.createGain();
     const organ = new Organ(context);
-    const reverb = new Reverb(context, 0.5);
+    const reverb = new Reverb(context);
 
     // Limit the volume
     const dynamics = context.createDynamicsCompressor();
