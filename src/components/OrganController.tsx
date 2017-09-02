@@ -42,8 +42,10 @@ export default class OrganController extends React.Component<propTypes> {
     }
 
     private toggleRank(rank: number) {
-        this.props.organ.toggleRank(rank);
-        this.forceUpdate();
+        if (rank >= 0 && rank < this.props.organ.ranks.length) {
+            this.props.organ.toggleRank(rank);
+            this.forceUpdate();
+        }
     }
 
     public render() {

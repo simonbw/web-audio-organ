@@ -35,6 +35,7 @@ export default class Organ {
     }
 
     public isRankActive(rankIndex: number): boolean {
+        this.checkValidRank(rankIndex);
         return this.rankToggles[rankIndex];
     }
 
@@ -47,13 +48,21 @@ export default class Organ {
     }
 
     public activateRank(rankIndex: number): void {
+        this.checkValidRank(rankIndex);
         this.rankToggles[rankIndex] = true;
     }
 
     public deactivateRank(rankIndex: number): void {
+        this.checkValidRank(rankIndex);
         if (this.rankToggles[rankIndex]) {
             this.ranks[rankIndex].stopAll();
             this.rankToggles[rankIndex] = false;
+        }
+    }
+
+    private checkValidRank(rankIndex: number) {
+        if (rankIndex < 0 || rankIndex >= this.rankToggles.length) {
+            throw new Error(`Invalid Rank: ${rankIndex}`);
         }
     }
 

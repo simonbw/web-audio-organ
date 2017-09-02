@@ -1,6 +1,6 @@
 import React from "react";
 import Reverb from "../audio/Reverb";
-import Knob from 'react-canvas-knob';
+import ControlKnob from "./ControlKnob";
 
 interface propTypes {
     reverb: Reverb
@@ -37,30 +37,18 @@ export default class ReverbController extends React.Component<propTypes, stateTy
     }
 
     public render() {
-        const loading = !this.props.reverb.isLoaded();
         return (
             <div>
                 <label>
                     Reverb
-                    <Knob
-                        angleArc={90 * 3}
-                        angleOffset={90 * 2.5}
-                        bgColor={loading ? "#666" : "#FFF"}
-                        disableTextInput
-                        height={80}
-                        inputColor={loading ? "#666" : "#FFF"}
-                        lineCap="butt"
+                    <ControlKnob
                         max={100}
                         min={0.0}
                         onChange={(value) => this.setReverbAmount(value)}
-                        onChangeEnd={(value) => this.setReverbAmount(value)}
-                        readOnly={loading}
                         step={1}
-                        stopper={false}
-                        thickness={0.5}
                         title="Reverb"
                         value={this.state.value}
-                        width={80}
+                        disabled={!this.props.reverb.isLoaded()}
                     />
                 </label>
             </div>

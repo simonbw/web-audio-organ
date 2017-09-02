@@ -23,4 +23,12 @@ export default class Tremulator {
     public setFrequency(value: number): void {
         this.oscillator.frequency.value = value;
     }
+
+    public getAmplitude(): number {
+        return this.gain.gain.value;
+    }
+
+    public getFrequency(): number {
+        return this.oscillator.frequency.value;
+    }
 }
