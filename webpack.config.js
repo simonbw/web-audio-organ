@@ -1,6 +1,6 @@
 module.exports = {
-  devtool: 'inline-source-map',
-  entry: './src/index.ts',
+  devtool: 'source-map',
+  entry: './src/index.tsx',
   output: { filename: 'dist/bundle.js' },
   module: {
     rules: [
@@ -24,6 +24,6 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js']
+    extensions: ['.ts', '.tsx', '.js', '.css']
   }
 };

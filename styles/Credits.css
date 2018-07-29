@@ -1,9 +1,10 @@
 .Credits {
     border: 1px solid #EEE;
     bottom: 0;
+    cursor: pointer;
     max-width: 320px;
+    padding: 10px;
     position: absolute;
     right: 0;
-    padding: 10px;
     z-index: 100;
 }

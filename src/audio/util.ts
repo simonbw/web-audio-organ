@@ -4,7 +4,7 @@
  * @return {number}
  */
 export function pitchToFrequency(pitch: number): number {
-    return 440 * Math.pow(2, pitch / 12.0);
+  return 440 * Math.pow(2, pitch / 12.0);
 }
 
 /**
@@ -14,7 +14,7 @@ export function pitchToFrequency(pitch: number): number {
  * @return {number}
  */
 export function randomInt(min: number, max: number): number {
-    return Math.floor(Math.random() * (max - min) + min);
+  return Math.floor(Math.random() * (max - min) + min);
 }
 
 /**
@@ -24,8 +24,12 @@ export function randomInt(min: number, max: number): number {
  * @param max
  * @return {number}
  */
-export function clamp(value: number, min: number = -1.0, max: number = 1.0): number {
-    return Math.max(Math.min(value, max), min);
+export function clamp(
+  value: number,
+  min: number = -1.0,
+  max: number = 1.0
+): number {
+  return Math.max(Math.min(value, max), min);
 }
 
 /**
@@ -40,11 +44,14 @@ const sounds = {};
  * @param filename
  * @return {Promise<Response>}
  */
-export function getSound(context: AudioContext, filename: string): Promise<AudioBuffer> {
-    if (sounds[filename] == null) {
-        sounds[filename] = fetch(`sounds/${filename}`)
-            .then((response: Response) => response.arrayBuffer())
-            .then((arrayBuffer: ArrayBuffer) => context.decodeAudioData(arrayBuffer));
-    }
-    return sounds[filename];
+export function getSound(
+  context: AudioContext,
+  filename: string
+): Promise<AudioBuffer> {
+  if (sounds[filename] == null) {
+    sounds[filename] = fetch(`sounds/${filename}`)
+      .then((response: Response) => response.arrayBuffer())
+      .then((arrayBuffer: ArrayBuffer) => context.decodeAudioData(arrayBuffer));
+  }
+  return sounds[filename];
 }

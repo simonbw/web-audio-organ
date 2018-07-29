@@ -25,17 +25,14 @@ export default class GainController extends React.Component<propTypes, stateType
     public render() {
         return (
             <div>
-                <label>
-                    Volume
-                    <ControlKnob
-                        value={this.state.value}
-                        onChange={(value) => this.setReverbAmount(value)}
-                        min={0.0}
-                        max={200}
-                        step={1}
-                        title="Gain"
-                    />
-                </label>
+                <ControlKnob
+                    value={this.state.value}
+                    onChange={(value) => this.setReverbAmount(value)}
+                    min={0.0}
+                    max={200}
+                    step={1}
+                    title="Volume"
+                />
             </div>
         );
     }

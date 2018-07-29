@@ -1,19 +1,3 @@
-import Reverb from "./audio/Reverb";
-
-export function bindKeysToReverb(reverb: Reverb) {
-    document.addEventListener('keydown', (event: KeyboardEvent) => {
-        if (!event.ctrlKey && !event.metaKey && !event.altKey) {
-            if (event.code == 'KeyZ') {
-                reverb.setWet(1.0);
-            } else if (event.code == 'KeyX') {
-                reverb.setWet(0.5);
-            } else if (event.code == 'KeyC') {
-                reverb.setWet(0.0);
-            }
-        }
-    });
-}
-
 export function keyToPitch(code): number {
     const keyPosition = [
         'KeyQ', // G#

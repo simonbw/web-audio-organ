@@ -1,5 +1,6 @@
 .Instructions {
     border: 1px solid #EEE;
+    cursor: pointer;
     max-width: 320px;
     padding: 10px;
     position: absolute;

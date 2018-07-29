@@ -27,7 +27,8 @@ window.addEventListener('load', () => {
     window['context'] = context;
 
     ReactDOM.render(
-        React.createElement(Main, {organ, reverb, masterGain}),
+        // React.createElement(Main, {organ, reverb, masterGain}),
+        <Main organ={organ} reverb={reverb} masterGain={masterGain}/>,
         document.getElementById('react-container')
     );
 });

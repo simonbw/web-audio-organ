@@ -1,7 +1,7 @@
 {
   "name": "organ",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.tsx",
   "license": "MIT",
   "dependencies": {
     "@types/react": "^15.6.1",
@@ -9,7 +9,7 @@
     "classnames": "^2.2.5",
     "css-loader": "^0.28.7",
     "react": "^15.6.1",
-    "react-canvas-knob": "github:simonbw/react-canvas-knob#master",
+    "react-canvas-knob": "^0.5.0",
     "react-dom": "^15.6.1",
     "style-loader": "^0.18.2",
     "ts-loader": "^2.3.3",
@@ -20,6 +20,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "webpack"
+    "build": "webpack",
+    "prettier": "prettier --write \"src/**/*.@(js|ts|tsx|css)\""
   }
 }

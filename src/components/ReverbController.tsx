@@ -39,18 +39,15 @@ export default class ReverbController extends React.Component<propTypes, stateTy
     public render() {
         return (
             <div>
-                <label>
-                    Reverb
-                    <ControlKnob
-                        max={100}
-                        min={0.0}
-                        onChange={(value) => this.setReverbAmount(value)}
-                        step={1}
-                        title="Reverb"
-                        value={this.state.value}
-                        disabled={!this.props.reverb.isLoaded()}
-                    />
-                </label>
+                <ControlKnob
+                    max={100}
+                    min={0.0}
+                    onChange={(value) => this.setReverbAmount(value)}
+                    step={1}
+                    title="Reverb"
+                    value={this.state.value}
+                    disabled={!this.props.reverb.isLoaded()}
+                />
             </div>
         );
     }

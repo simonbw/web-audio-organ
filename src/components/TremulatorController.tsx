@@ -33,28 +33,22 @@ export default class TremulatorController extends React.Component<propTypes, sta
     public render() {
         return (
             <div>
-                <label>
-                    Frequency
-                    <ControlKnob
-                        max={10}
-                        min={0.5}
-                        onChange={(value) => this.setFrequency(value)}
-                        step={0.1}
-                        title="Frequency"
-                        value={this.state.frequency}
-                    />
-                </label>
-                <label>
-                    Amplitude
-                    <ControlKnob
-                        max={100}
-                        min={0.0}
-                        onChange={(value) => this.setAmplitude(value)}
-                        step={1}
-                        title="Amplitude"
-                        value={this.state.amplitude}
-                    />
-                </label>
+                <ControlKnob
+                    max={10}
+                    min={0.5}
+                    onChange={(value) => this.setFrequency(value)}
+                    step={0.1}
+                    title="Frequency"
+                    value={this.state.frequency}
+                />
+                <ControlKnob
+                    max={100}
+                    min={0.0}
+                    onChange={(value) => this.setAmplitude(value)}
+                    step={1}
+                    title="Amplitude"
+                    value={this.state.amplitude}
+                />
             </div>
         );
     }
