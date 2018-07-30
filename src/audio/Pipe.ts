@@ -88,13 +88,12 @@ export default class Pipe {
   private getDecayLength(currentGain: number): number {
     const percent = clamp((this.pitch + 36) / 72, 0, 1.0) ** 1.5; // [0.0, 1.0]
     const maxLength = 0.5 / (1.0 + 19 * percent); // [0.025, 0.5]
-    return currentGain / this.maxGain * maxLength;
+    return (currentGain / this.maxGain) * maxLength;
   }
 
   public play() {
     if (!this.playing) {
       this.playing = true;
-      console.log("pipe played");
 
       const now = this.output.context.currentTime;
       const currentGain = this.gain.gain.value;
@@ -110,7 +109,6 @@ export default class Pipe {
   public stop() {
     if (this.playing) {
       this.playing = false;
-      console.log("pipe stopped");
 
       const now = this.output.context.currentTime;
       const currentGain = this.gain.gain.value;

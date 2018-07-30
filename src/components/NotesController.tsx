@@ -50,7 +50,6 @@ export default class NotesController extends React.Component<Props> {
     if (event.button === 0) {
       this.mouseIsDown = false;
     }
-    console.log("mouse up");
   };
 
   handleTouches = (event: React.TouchEvent<any>): void => {

@@ -23088,12 +23088,11 @@ class Pipe {
     getDecayLength(currentGain) {
         const percent = Math.pow(Object(__WEBPACK_IMPORTED_MODULE_0__util__["a" /* clamp */])((this.pitch + 36) / 72, 0, 1.0), 1.5); // [0.0, 1.0]
         const maxLength = 0.5 / (1.0 + 19 * percent); // [0.025, 0.5]
-        return currentGain / this.maxGain * maxLength;
+        return (currentGain / this.maxGain) * maxLength;
     }
     play() {
         if (!this.playing) {
             this.playing = true;
-            console.log("pipe played");
             const now = this.output.context.currentTime;
             const currentGain = this.gain.gain.value;
             this.gain.gain.cancelScheduledValues(now);
@@ -23104,7 +23103,6 @@ class Pipe {
     stop() {
         if (this.playing) {
             this.playing = false;
-            console.log("pipe stopped");
             const now = this.output.context.currentTime;
             const currentGain = this.gain.gain.value;
             this.gain.gain.cancelScheduledValues(now);
@@ -23285,7 +23283,7 @@ exports = module.exports = __webpack_require__(17)(false);
 
 
 // module
-exports.push([module.i, "* {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n}\n\nhtml,\nbody {\n  background: #171717;\n  color: #ddd;\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  font-size: 15px;\n  line-height: 1.5;\n  margin: 0;\n  padding: 0;\n}\n\np,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  margin: 0;\n  padding: 0;\n}\n\nh2 {\n  font-size: 0.9em;\n  margin: 0;\n}\n", ""]);
+exports.push([module.i, "* {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n}\n\nhtml,\nbody {\n  background: #333;\n  color: #ddd;\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  font-size: 15px;\n  line-height: 1.5;\n  margin: 0;\n  padding: 0;\n}\n\np,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  margin: 0;\n  padding: 0;\n}\n\nh2 {\n  font-size: 0.9em;\n  margin: 0;\n}\n", ""]);
 
 // exports
 
@@ -24123,7 +24121,7 @@ exports = module.exports = __webpack_require__(17)(false);
 
 
 // module
-exports.push([module.i, "._1XgytkBgOCMVNpMRnVU98M {\n  background: #fff2;\n  border-radius: 10px;\n}\n\n._1XgytkBgOCMVNpMRnVU98M h2 {\n  width: 100%;\n  margin-top: 5px;\n  margin-left: 10px;\n}\n\n._4-EcLJgeHCjuYqZiNvuqi {\n  display: flex;\n  flex-flow: row wrap;\n}\n\n._4-EcLJgeHCjuYqZiNvuqi > * {\n  margin: 10px;\n}\n", ""]);
+exports.push([module.i, "._1XgytkBgOCMVNpMRnVU98M {\n  background: #fff4;\n  border-radius: 4px;\n}\n\n._1XgytkBgOCMVNpMRnVU98M h2 {\n  width: 100%;\n  margin-top: 5px;\n  margin-left: 10px;\n}\n\n._4-EcLJgeHCjuYqZiNvuqi {\n  display: flex;\n  flex-flow: row wrap;\n}\n\n._4-EcLJgeHCjuYqZiNvuqi > * {\n  margin: 10px;\n}\n", ""]);
 
 // exports
 exports.locals = {
@@ -24218,7 +24216,7 @@ exports = module.exports = __webpack_require__(17)(false);
 
 
 // module
-exports.push([module.i, "._3BiuU60R78OeRV1re2JK2z {\n  margin-bottom: 10px;\n  width: 100%;\n}\n\n._3TeX2Tg2zy9MDaylwW-mmX {\n  display: flex;\n  flex-flow: row wrap;\n}\n\n._1BgioaTYB85wBNDlrPB6J_ {\n  background: #fff1;\n  border-bottom: 1px solid transparent;\n  color: #aaa;\n  cursor: pointer;\n  flex: 1;\n  padding: 5px 15px;\n  text-align: center;\n  user-select: none;\n}\n\n._1BgioaTYB85wBNDlrPB6J_._3g3f2u0J4LjWCkmCaTqp_6 {\n  background: #fff2;\n  color: #fff;\n}\n\n._1BgioaTYB85wBNDlrPB6J_:hover {\n  border-bottom-color: #ddd;\n}\n\n._1BgioaTYB85wBNDlrPB6J_:active {\n  background: #444;\n}\n\n._2oNoZNphb2s_6Gjtv9vMnY {\n  display: block;\n}\n\n._1sUxXOV6emeOnkvfD8jnYj {\n  display: block;\n  font-size: 0.8em;\n}\n", ""]);
+exports.push([module.i, "._3BiuU60R78OeRV1re2JK2z {\n  margin-bottom: 10px;\n  width: 100%;\n}\n\n._3BiuU60R78OeRV1re2JK2z h2 {\n  margin-left: 10px;\n}\n\n._3TeX2Tg2zy9MDaylwW-mmX {\n  border-radius: 4px;\n  display: flex;\n  flex-flow: row wrap;\n  overflow: hidden;\n}\n\n._1BgioaTYB85wBNDlrPB6J_ {\n  background: #fff1;\n  border-bottom: 1px solid transparent;\n  color: #aaa;\n  cursor: pointer;\n  flex: 1;\n  padding: 5px 15px;\n  text-align: center;\n  user-select: none;\n}\n\n._1BgioaTYB85wBNDlrPB6J_._3g3f2u0J4LjWCkmCaTqp_6 {\n  background: #fff4;\n  color: #fff;\n}\n\n._1BgioaTYB85wBNDlrPB6J_:hover {\n  border-bottom-color: #ddd;\n}\n\n._1BgioaTYB85wBNDlrPB6J_:active {\n  background: #fff5;\n}\n\n._2oNoZNphb2s_6Gjtv9vMnY {\n  display: block;\n}\n\n._1sUxXOV6emeOnkvfD8jnYj {\n  display: block;\n  font-size: 0.8em;\n}\n", ""]);
 
 // exports
 exports.locals = {
@@ -24276,7 +24274,6 @@ class NotesController extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Comp
             if (event.button === 0) {
                 this.mouseIsDown = false;
             }
-            console.log("mouse up");
         };
         this.handleTouches = (event) => {
             const newNotes = new Set();
@@ -24376,7 +24373,7 @@ exports = module.exports = __webpack_require__(17)(false);
 
 
 // module
-exports.push([module.i, "._1-bBIrt_22tzwISbVjlMVf {\n  background: #fff4;\n  display: flex;\n  flex-flow: column;\n  margin: 10px 0;\n  width: 100%;\n}\n\n.S7kmQ_XrtBlJxcqUNsWWx {\n  display: flex;\n  flex-flow: row nowrap;\n  padding: 10px 18px;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8 {\n  background: #fff1;\n  cursor: pointer;\n  flex: 1 1;\n  font-size: 0.7em;\n  position: relative;\n  text-align: center;\n  user-select: none;\n\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n  -webkit-tap-highlight-color: transparent;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8._2HFgiIqqfUlzKmCygyLvwO {\n  background: #fff;\n  color: #000c;\n  vertical-align: bottom;\n  width: 28px;\n  height: 100px;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8.DJ64-WsmKYJdz7RLPifhO {\n  background: #000;\n  color: #fffc;\n  height: 70px;\n  margin-left: -11px;\n  margin-right: -11px;\n  width: 22px;\n  z-index: 1;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8 ._1Np1SlOuHmvtcMLasj6u7d {\n  bottom: 0;\n  left: 0;\n  position: absolute;\n  right: 0;\n  text-align: center;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8.DJ64-WsmKYJdz7RLPifhO:hover {\n  background: #1a1a1a;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8._2HFgiIqqfUlzKmCygyLvwO:hover {\n  background: #ddd;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8.DJ64-WsmKYJdz7RLPifhO._1_AIQ998d5ymIHe2KPSwgs {\n  background: #252525;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8._2HFgiIqqfUlzKmCygyLvwO._1_AIQ998d5ymIHe2KPSwgs {\n  background: #bbb;\n}\n", ""]);
+exports.push([module.i, "._1-bBIrt_22tzwISbVjlMVf {\n  background: #fff4;\n  border-radius: 3px;\n  display: flex;\n  flex-flow: column;\n  margin: 10px 0;\n  width: 100%;\n}\n\n.S7kmQ_XrtBlJxcqUNsWWx {\n  display: flex;\n  flex-flow: row nowrap;\n  padding: 10px 21px;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8 {\n  background: #fff1;\n  cursor: pointer;\n  flex: 1 1;\n  font-size: 0.7em;\n  position: relative;\n  text-align: center;\n  user-select: none;\n\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n  -webkit-tap-highlight-color: transparent;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8._2HFgiIqqfUlzKmCygyLvwO {\n  background: #fff;\n  color: #000c;\n  vertical-align: bottom;\n  width: 28px;\n  height: 100px;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8.DJ64-WsmKYJdz7RLPifhO {\n  background: #000;\n  color: #fffc;\n  height: 70px;\n  margin-left: -11px;\n  margin-right: -11px;\n  width: 22px;\n  z-index: 1;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8 ._1Np1SlOuHmvtcMLasj6u7d {\n  bottom: 0;\n  left: 0;\n  position: absolute;\n  right: 0;\n  text-align: center;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8.DJ64-WsmKYJdz7RLPifhO:hover {\n  background: #1a1a1a;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8._2HFgiIqqfUlzKmCygyLvwO:hover {\n  background: #ddd;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8.DJ64-WsmKYJdz7RLPifhO._1_AIQ998d5ymIHe2KPSwgs {\n  background: #252525;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8._2HFgiIqqfUlzKmCygyLvwO._1_AIQ998d5ymIHe2KPSwgs {\n  background: #bbb;\n}\n", ""]);
 
 // exports
 exports.locals = {

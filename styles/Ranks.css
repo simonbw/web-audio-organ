@@ -3,9 +3,15 @@
   width: 100%;
 }
 
+.RanksContainer h2 {
+  margin-left: 10px;
+}
+
 .Ranks {
+  border-radius: 4px;
   display: flex;
   flex-flow: row wrap;
+  overflow: hidden;
 }
 
 .RankToggle {
@@ -20,7 +26,7 @@
 }
 
 .RankToggle.on {
-  background: #fff2;
+  background: #fff4;
   color: #fff;
 }
 
@@ -29,7 +35,7 @@
 }
 
 .RankToggle:active {
-  background: #444;
+  background: #fff5;
 }
 
 .RankNumber {
