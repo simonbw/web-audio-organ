@@ -59,7 +59,12 @@ export function getSound(
   if (sounds[filename] == null) {
     sounds[filename] = fetch(`sounds/${filename}`)
       .then((response: Response) => response.arrayBuffer())
-      .then((arrayBuffer: ArrayBuffer) => context.decodeAudioData(arrayBuffer));
+      .then(
+        (arrayBuffer: ArrayBuffer) =>
+          new Promise((resolve, reject) =>
+            context.decodeAudioData(arrayBuffer, resolve, reject)
+          ) as Promise<AudioBuffer>
+      );
   }
   return sounds[filename];
 }

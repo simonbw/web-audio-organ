@@ -11,6 +11,7 @@
     "react": "^15.6.1",
     "react-canvas-knob": "https://github.com/simonbw/react-canvas-knob#master",
     "react-dom": "^15.6.1",
+    "stereo-panner-node": "^1.4.0",
     "style-loader": "^0.18.2",
     "ts-loader": "^2.3.3",
     "typescript": "^2.4.2",

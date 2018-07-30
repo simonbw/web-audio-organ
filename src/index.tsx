@@ -3,11 +3,19 @@ import ReactDOM from "react-dom";
 import Organ from "./audio/Organ";
 import Reverb from "./audio/Reverb";
 import Main from "./components/Main";
+import { polyfill as polyfillStereoPannerNode } from "stereo-panner-node";
 
-declare const webkitAudioContext: { new (): AudioContext };
+declare global {
+  interface Window {
+    AudioContext: { new (): AudioContext };
+    webkitAudioContext: { new (): AudioContext };
+  }
+}
 
 window.addEventListener("load", () => {
-  const context: AudioContext = new (AudioContext || webkitAudioContext)();
+  polyfillStereoPannerNode();
+  const context: AudioContext = new (window.AudioContext ||
+    window.webkitAudioContext)();
   const masterGain = context.createGain();
   const mute = context.createGain();
   const organ = new Organ(context);
