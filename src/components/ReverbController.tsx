@@ -1,6 +1,7 @@
 import React from "react";
 import Reverb from "../audio/Reverb";
 import ControlKnob from "./ControlKnob";
+import styles from "../../styles/Layout.css";
 
 interface propTypes {
   reverb: Reverb;
@@ -20,6 +21,7 @@ export default class ReverbController extends React.Component<
   }
 
   public componentDidMount() {
+    this.props.reverb.onLoad(() => this.setReverbAmount(100));
     document.addEventListener("keydown", (event: KeyboardEvent) => {
       if (!event.ctrlKey && !event.metaKey && !event.altKey) {
         if (event.code == "KeyZ") {
@@ -31,7 +33,6 @@ export default class ReverbController extends React.Component<
         }
       }
     });
-    this.props.reverb.onLoad(() => this.setReverbAmount(50));
   }
 
   setReverbAmount(value: number): void {
@@ -41,15 +42,15 @@ export default class ReverbController extends React.Component<
 
   public render() {
     return (
-      <div>
+      <div className={styles.Box}>
         <ControlKnob
+          disabled={!this.props.reverb.isLoaded()}
           max={100}
           min={0.0}
           onChange={value => this.setReverbAmount(value)}
           step={1}
           title="Reverb"
           value={this.state.value}
-          disabled={!this.props.reverb.isLoaded()}
         />
       </div>
     );

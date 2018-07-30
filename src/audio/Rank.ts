@@ -2,6 +2,7 @@
  * A rank is a set of pipes.
  */
 import Pipe from "./Pipe";
+import { MIN_NOTE, MAX_NOTE } from "../keyboard";
 
 export default class Rank {
   public output: AudioNode;
@@ -20,7 +21,7 @@ export default class Rank {
     this.output = this.gain;
 
     this.pipes = {};
-    for (let i = -1; i < 21; i++) {
+    for (let i = MIN_NOTE; i < MAX_NOTE; i++) {
       const pipe = new Pipe(context, i + offset, tremulator);
       pipe.output.connect(this.gain);
       this.pipes[i] = pipe;

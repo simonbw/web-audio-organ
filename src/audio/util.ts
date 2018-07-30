@@ -17,6 +17,14 @@ export function randomInt(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min) + min);
 }
 
+export function range(min: number, max: number): number[] {
+  const result = [];
+  for (let i = min; i < max; i++) {
+    result.push(i);
+  }
+  return result;
+}
+
 /**
  * Clamp value to the range [min, max]
  * @param value
@@ -32,11 +40,11 @@ export function clamp(
   return Math.max(Math.min(value, max), min);
 }
 
-/**
- * Save already loaded sounds.
- * @type {{[string]: Promise<AudioBuffer>}}
- */
-const sounds = {};
+export function mod(a: number, b: number): number {
+  return ((a % b) + b) % b;
+}
+
+const sounds: { [filename: string]: Promise<AudioBuffer> } = {};
 
 /**
  * Loads a sound from a filename. Uses cached version if already loaded.

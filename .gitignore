@@ -4,3 +4,4 @@ node_modules/
 .yarnclean
 .DS_Store
 sounds/stalbans_a_mono.wav
+.vscode

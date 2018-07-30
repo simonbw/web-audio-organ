@@ -1,0 +1,24 @@
+.Footer {
+  color: #fffc;
+  text-align: right;
+  margin-top: 10px;
+}
+
+.GithubLink {
+  color: #fffe;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.GithubLink svg {
+  fill: #fff;
+  width: 20px;
+}
+
+.GithubLink:hover {
+  opacity: 0.9;
+  color: #fff;
+}
+.GithubLink:active {
+  opacity: 1;
+  color: #fff;
+}

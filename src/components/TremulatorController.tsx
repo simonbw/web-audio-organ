@@ -1,6 +1,7 @@
 import React from "react";
 import Tremulator from "../audio/Tremulator";
 import ControlKnob from "./ControlKnob";
+import styles from "../../styles/Tremulator.css";
 
 interface propTypes {
   tremulator: Tremulator;
@@ -35,23 +36,26 @@ export default class TremulatorController extends React.Component<
 
   public render() {
     return (
-      <div>
-        <ControlKnob
-          max={10}
-          min={0.5}
-          onChange={value => this.setFrequency(value)}
-          step={0.1}
-          title="Frequency"
-          value={this.state.frequency}
-        />
-        <ControlKnob
-          max={100}
-          min={0.0}
-          onChange={value => this.setAmplitude(value)}
-          step={1}
-          title="Amplitude"
-          value={this.state.amplitude}
-        />
+      <div className={styles.Tremulator}>
+        <h2>Tremulator</h2>
+        <div className={styles.TremulatorKnobs}>
+          <ControlKnob
+            max={10}
+            min={0.5}
+            onChange={value => this.setFrequency(value)}
+            step={0.1}
+            title="Frequency"
+            value={this.state.frequency}
+          />
+          <ControlKnob
+            max={100}
+            min={0.0}
+            onChange={value => this.setAmplitude(value)}
+            step={1}
+            title="Amplitude"
+            value={this.state.amplitude}
+          />
+        </div>
       </div>
     );
   }

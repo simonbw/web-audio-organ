@@ -1,5 +1,16 @@
-.ControlKnobLabel {
+.ControlKnobContainer {
+  align-items: center;
   display: flex;
   flex-flow: column nowrap;
-  align-items: center;
+  margin: 0px;
+}
+
+.ControlKnobContainer canvas {
+  cursor: pointer;
+}
+
+.ControlKnobLabel {
+  margin-top: -10px;
+  cursor: auto;
+  display: block;
 }

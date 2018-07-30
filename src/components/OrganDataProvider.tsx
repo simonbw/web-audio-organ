@@ -1,6 +1,6 @@
 import React, { ReactNode, ReactChild } from "react";
 import Organ from "../audio/Organ";
-import { keyToPitch, keyToRank } from "../keyboard";
+import { MIN_NOTE, MAX_NOTE } from "../keyboard";
 
 interface Props {
   organ: Organ;
@@ -12,6 +12,7 @@ export interface OrganData {
   toggleRank: (rank: number) => void;
   play: (pitch: number) => void;
   stop: (pitch: number) => void;
+  notes: { [pitch: number]: boolean };
 }
 
 export default class OrganDataProvider extends React.Component<Props> {
@@ -33,11 +34,16 @@ export default class OrganDataProvider extends React.Component<Props> {
   };
 
   private makeData(): OrganData {
+    const notes = {};
+    for (let note = MIN_NOTE; note < MAX_NOTE; note++) {
+      notes[note] = this.props.organ.isPitchActive(note);
+    }
     return {
       ranks: this.props.organ.rankToggles,
       toggleRank: this.toggleRank,
       play: this.play,
-      stop: this.stop
+      stop: this.stop,
+      notes
     };
   }
 

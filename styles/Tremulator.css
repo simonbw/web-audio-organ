@@ -1,0 +1,19 @@
+.Tremulator {
+  background: #fff2;
+  border-radius: 10px;
+}
+
+.Tremulator h2 {
+  width: 100%;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+.TremulatorKnobs {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.TremulatorKnobs > * {
+  margin: 10px;
+}

@@ -1,35 +1,44 @@
-export function keyToPitch(code): number {
-  const keyPosition = [
-    "KeyQ", // G#
-    "KeyA", // A
-    "KeyW", // A#
-    "KeyS", // B
-    // 'KeyE',
-    "KeyD", // C
-    "KeyR", // C#
-    "KeyF", // D
-    "KeyT", // D#
-    "KeyG", // E
-    // 'KeyY',
-    "KeyH", // F
-    "KeyU", // F#
-    "KeyJ", // G
-    "KeyI", // G#
-    "KeyK", // A
-    "KeyO", // A#
-    "KeyL", // B
-    // 'KeyP',
-    "Semicolon", // C
-    "BracketLeft", // C#
-    "Quote", // D
-    "BracketRight", // D#
-    "Enter", // E
-    "Backslash" // F
-  ].indexOf(code);
+const keys = [
+  "KeyQ",
+  "KeyA",
+  "KeyW",
+  "KeyS",
+  // 'KeyE',
+  "KeyD",
+  "KeyR",
+  "KeyF",
+  "KeyT",
+  "KeyG",
+  "KeyY",
+  "KeyH",
+  // "KeyU",
+  "KeyJ",
+  "KeyI",
+  "KeyK",
+  "KeyO",
+  "KeyL",
+  // 'KeyP',
+  "Semicolon",
+  "BracketLeft",
+  "Quote",
+  "BracketRight",
+  "Enter",
+  "Backslash"
+];
+
+export const MIN_NOTE = 4;
+export const MAX_NOTE = MIN_NOTE + keys.length;
+
+export function keyToNote(code: string): number {
+  const keyPosition = keys.indexOf(code);
   if (keyPosition >= 0) {
-    return keyPosition - 1;
+    return keyPosition + MIN_NOTE;
   }
   return null;
+}
+
+export function noteToKey(note: number): string {
+  return keys[note - MIN_NOTE];
 }
 
 export function keyToRank(code): number {

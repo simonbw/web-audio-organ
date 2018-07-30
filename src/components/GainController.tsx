@@ -1,6 +1,6 @@
 import React from "react";
-import Knob from "react-canvas-knob";
 import ControlKnob from "./ControlKnob";
+import styles from "../../styles/Layout.css";
 
 interface propTypes {
   gain: GainNode;
@@ -19,22 +19,26 @@ export default class GainController extends React.Component<
     this.state = { value: Math.floor(props.gain.gain.value * 100) };
   }
 
-  setReverbAmount(value: number): void {
+  setGainAmount(value: number): void {
     const gain = this.props.gain;
-    gain.gain.setTargetAtTime(value / 100, gain.context.currentTime, 0.01);
+    gain.gain.setTargetAtTime(
+      2 ** (value / 100) - 1.0,
+      gain.context.currentTime,
+      0.01
+    );
     this.setState({ value });
   }
 
   public render() {
     return (
-      <div>
+      <div className={styles.Box}>
         <ControlKnob
-          value={this.state.value}
-          onChange={value => this.setReverbAmount(value)}
+          max={120}
           min={0.0}
-          max={200}
+          onChange={value => this.setGainAmount(value)}
           step={1}
           title="Volume"
+          value={this.state.value}
         />
       </div>
     );

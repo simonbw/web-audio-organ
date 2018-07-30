@@ -7,20 +7,18 @@ import Tremulator from "./Tremulator";
  * An organ is a collection of ranks.
  */
 export default class Organ {
-  public output: AudioNode;
-  public ranks: Array<Rank>;
-  public rankToggles: Array<boolean>;
+  public output: GainNode;
+  public ranks: Array<Rank> = [];
+  public rankToggles: Array<boolean> = [];
 
+  private activeNotes: Set<number> = new Set();
   private tremulator: Tremulator;
 
   constructor(context: AudioContext) {
-    const gain = (this.output = context.createGain());
-    gain.gain.value = 0.1;
+    this.output = context.createGain();
+    this.output.gain.value = 0.1;
 
     this.tremulator = new Tremulator(context);
-
-    this.rankToggles = [];
-    this.ranks = [];
 
     this.addRank(new Rank(context, this.tremulator.output, -36, 2.0), true);
     this.addRank(new Rank(context, this.tremulator.output, -24, 1.0), true);
@@ -70,12 +68,18 @@ export default class Organ {
     this.getActiveRanks().forEach(rank => {
       rank.play(pitch);
     });
+    this.activeNotes.add(pitch);
   }
 
   public stop(pitch: number): void {
     this.getActiveRanks().forEach(rank => {
       rank.stop(pitch);
     });
+    this.activeNotes.delete(pitch);
+  }
+
+  public isPitchActive(pitch: number): boolean {
+    return this.activeNotes.has(pitch);
   }
 
   private getActiveRanks(): Array<Rank> {

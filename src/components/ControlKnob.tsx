@@ -22,8 +22,7 @@ export default function ControlKnob({
   disabled = false
 }: propTypes) {
   return (
-    <label className={styles.ControlKnobLabel}>
-      <span>{title}</span>
+    <label className={styles.ControlKnobContainer}>
       <Knob
         max={max}
         min={min}
@@ -43,6 +42,7 @@ export default function ControlKnob({
         thickness={0.5}
         width={80}
       />
+      <span className={styles.ControlKnobLabel}>{title}</span>
     </label>
   );
 }

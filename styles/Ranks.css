@@ -1,0 +1,42 @@
+.RanksContainer {
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.Ranks {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.RankToggle {
+  background: #fff1;
+  border-bottom: 1px solid transparent;
+  color: #aaa;
+  cursor: pointer;
+  flex: 1;
+  padding: 5px 15px;
+  text-align: center;
+  user-select: none;
+}
+
+.RankToggle.on {
+  background: #fff2;
+  color: #fff;
+}
+
+.RankToggle:hover {
+  border-bottom-color: #ddd;
+}
+
+.RankToggle:active {
+  background: #444;
+}
+
+.RankNumber {
+  display: block;
+}
+
+.RankStatus {
+  display: block;
+  font-size: 0.8em;
+}
