@@ -23018,9 +23018,9 @@ class Rank {
 
 class Pipe {
     constructor(context, pitch, tremulator) {
-        this.pitch = pitch;
         this.playing = false;
-        this.maxGain = 0.1;
+        this.maxGain = 0.4;
+        this.pitch = pitch;
         this.gain = context.createGain(); // Main volume control
         this.gain.gain.value = 0;
         this.output = this.gain;
@@ -23047,11 +23047,7 @@ class Pipe {
         tremelo.connect(panner);
         panner.connect(this.gain);
     }
-    /**
-     * Construct the spectrum for the pipe.
-     * @param context
-     * @return {PeriodicWave}
-     */
+    // Construct the spectrum for the pipe.
     getPeriodicWave(context) {
         const NUMBER_OF_HARMONICS = 16;
         const EVEN_COEFFICIENT = 0.3;
@@ -23074,17 +23070,13 @@ class Pipe {
             disableNormalization: true
         });
     }
-    /**
-     * @return {number} time to warm up
-     */
+    // Time in seconds to reach full volume
     getAttackLength(currentGain) {
         const percent = Math.pow(Object(__WEBPACK_IMPORTED_MODULE_0__util__["a" /* clamp */])((this.pitch + 36) / 72, 0, 1.0), 1.5); // [0.0, 1.0]
         const maxLength = 0.2 / (1.0 + 19 * percent); // [0.01, 0.2]
         return (1.0 - currentGain / this.maxGain) * maxLength;
     }
-    /**
-     * @return {number} time to cool down
-     */
+    // Time in seconds to reach no volume
     getDecayLength(currentGain) {
         const percent = Math.pow(Object(__WEBPACK_IMPORTED_MODULE_0__util__["a" /* clamp */])((this.pitch + 36) / 72, 0, 1.0), 1.5); // [0.0, 1.0]
         const maxLength = 0.5 / (1.0 + 19 * percent); // [0.025, 0.5]
@@ -24216,7 +24208,7 @@ exports = module.exports = __webpack_require__(17)(false);
 
 
 // module
-exports.push([module.i, "._3BiuU60R78OeRV1re2JK2z {\n  margin-bottom: 10px;\n  width: 100%;\n}\n\n._3BiuU60R78OeRV1re2JK2z h2 {\n  margin-left: 10px;\n}\n\n._3TeX2Tg2zy9MDaylwW-mmX {\n  border-radius: 4px;\n  display: flex;\n  flex-flow: row wrap;\n  overflow: hidden;\n}\n\n._1BgioaTYB85wBNDlrPB6J_ {\n  background: #fff1;\n  border-bottom: 1px solid transparent;\n  color: #aaa;\n  cursor: pointer;\n  flex: 1;\n  padding: 5px 15px;\n  text-align: center;\n  user-select: none;\n}\n\n._1BgioaTYB85wBNDlrPB6J_._3g3f2u0J4LjWCkmCaTqp_6 {\n  background: #fff4;\n  color: #fff;\n}\n\n._1BgioaTYB85wBNDlrPB6J_:hover {\n  border-bottom-color: #ddd;\n}\n\n._1BgioaTYB85wBNDlrPB6J_:active {\n  background: #fff5;\n}\n\n._2oNoZNphb2s_6Gjtv9vMnY {\n  display: block;\n}\n\n._1sUxXOV6emeOnkvfD8jnYj {\n  display: block;\n  font-size: 0.8em;\n}\n", ""]);
+exports.push([module.i, "._3BiuU60R78OeRV1re2JK2z {\n  margin-bottom: 10px;\n  width: 100%;\n}\n\n._3BiuU60R78OeRV1re2JK2z h2 {\n  margin-left: 10px;\n}\n\n._3TeX2Tg2zy9MDaylwW-mmX {\n  border-radius: 4px;\n  display: flex;\n  flex-flow: row wrap;\n  overflow: hidden;\n}\n\n._1BgioaTYB85wBNDlrPB6J_ {\n  background: #fff1;\n  border-bottom: 1px solid transparent;\n  color: #aaa;\n  cursor: pointer;\n  flex: 1;\n  padding: 5px 15px;\n  text-align: center;\n  user-select: none;\n  -webkit-user-select: none;\n}\n\n._1BgioaTYB85wBNDlrPB6J_._3g3f2u0J4LjWCkmCaTqp_6 {\n  background: #fff4;\n  color: #fff;\n}\n\n._1BgioaTYB85wBNDlrPB6J_:hover {\n  border-bottom-color: #ddd;\n}\n\n._1BgioaTYB85wBNDlrPB6J_:active {\n  background: #fff5;\n}\n\n._2oNoZNphb2s_6Gjtv9vMnY {\n  display: block;\n}\n\n._1sUxXOV6emeOnkvfD8jnYj {\n  display: block;\n  font-size: 0.8em;\n}\n", ""]);
 
 // exports
 exports.locals = {
@@ -24373,7 +24365,7 @@ exports = module.exports = __webpack_require__(17)(false);
 
 
 // module
-exports.push([module.i, "._1-bBIrt_22tzwISbVjlMVf {\n  background: #fff4;\n  border-radius: 3px;\n  display: flex;\n  flex-flow: column;\n  margin: 10px 0;\n  width: 100%;\n}\n\n.S7kmQ_XrtBlJxcqUNsWWx {\n  display: flex;\n  flex-flow: row nowrap;\n  padding: 10px 21px;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8 {\n  background: #fff1;\n  cursor: pointer;\n  flex: 1 1;\n  font-size: 0.7em;\n  position: relative;\n  text-align: center;\n  user-select: none;\n\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n  -webkit-tap-highlight-color: transparent;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8._2HFgiIqqfUlzKmCygyLvwO {\n  background: #fff;\n  color: #000c;\n  vertical-align: bottom;\n  width: 28px;\n  height: 100px;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8.DJ64-WsmKYJdz7RLPifhO {\n  background: #000;\n  color: #fffc;\n  height: 70px;\n  margin-left: -11px;\n  margin-right: -11px;\n  width: 22px;\n  z-index: 1;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8 ._1Np1SlOuHmvtcMLasj6u7d {\n  bottom: 0;\n  left: 0;\n  position: absolute;\n  right: 0;\n  text-align: center;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8.DJ64-WsmKYJdz7RLPifhO:hover {\n  background: #1a1a1a;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8._2HFgiIqqfUlzKmCygyLvwO:hover {\n  background: #ddd;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8.DJ64-WsmKYJdz7RLPifhO._1_AIQ998d5ymIHe2KPSwgs {\n  background: #252525;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8._2HFgiIqqfUlzKmCygyLvwO._1_AIQ998d5ymIHe2KPSwgs {\n  background: #bbb;\n}\n", ""]);
+exports.push([module.i, "._1-bBIrt_22tzwISbVjlMVf {\n  background: #fff4;\n  border-radius: 3px;\n  display: flex;\n  flex-flow: column;\n  margin: 10px 0;\n  width: 100%;\n}\n\n.S7kmQ_XrtBlJxcqUNsWWx {\n  display: flex;\n  flex-flow: row nowrap;\n  padding: 10px 21px;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8 {\n  background: #fff1;\n  cursor: pointer;\n  flex: 1 1;\n  font-size: 0.7em;\n  position: relative;\n  text-align: center;\n  user-select: none;\n  -webkit-user-select: none;\n\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n  -webkit-tap-highlight-color: transparent;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8._2HFgiIqqfUlzKmCygyLvwO {\n  background: #fff;\n  color: #000c;\n  vertical-align: bottom;\n  width: 28px;\n  height: 100px;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8.DJ64-WsmKYJdz7RLPifhO {\n  background: #000;\n  color: #fffc;\n  height: 70px;\n  margin-left: -11px;\n  margin-right: -11px;\n  width: 22px;\n  z-index: 1;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8 ._1Np1SlOuHmvtcMLasj6u7d {\n  bottom: 0;\n  left: 0;\n  position: absolute;\n  right: 0;\n  text-align: center;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8.DJ64-WsmKYJdz7RLPifhO:hover {\n  background: #1a1a1a;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8._2HFgiIqqfUlzKmCygyLvwO:hover {\n  background: #ddd;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8.DJ64-WsmKYJdz7RLPifhO._1_AIQ998d5ymIHe2KPSwgs {\n  background: #252525;\n}\n\n._1U9Qs2zri1KUtuJ6BMYVp8._2HFgiIqqfUlzKmCygyLvwO._1_AIQ998d5ymIHe2KPSwgs {\n  background: #bbb;\n}\n", ""]);
 
 // exports
 exports.locals = {

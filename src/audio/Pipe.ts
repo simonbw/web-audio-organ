@@ -4,13 +4,11 @@ export default class Pipe {
   public output: AudioNode;
   private gain: GainNode;
   private pitch: number;
-  private playing: boolean;
-  private maxGain: number;
+  private playing: boolean = false;
+  private maxGain: number = 0.4;
 
   constructor(context: AudioContext, pitch: number, tremulator: AudioNode) {
     this.pitch = pitch;
-    this.playing = false;
-    this.maxGain = 0.1;
 
     this.gain = context.createGain(); // Main volume control
     this.gain.gain.value = 0;
@@ -44,11 +42,7 @@ export default class Pipe {
     panner.connect(this.gain);
   }
 
-  /**
-   * Construct the spectrum for the pipe.
-   * @param context
-   * @return {PeriodicWave}
-   */
+  // Construct the spectrum for the pipe.
   private getPeriodicWave(context: AudioContext) {
     const NUMBER_OF_HARMONICS = 16;
     const EVEN_COEFFICIENT = 0.3;
@@ -73,18 +67,14 @@ export default class Pipe {
     });
   }
 
-  /**
-   * @return {number} time to warm up
-   */
+  // Time in seconds to reach full volume
   private getAttackLength(currentGain: number): number {
     const percent = clamp((this.pitch + 36) / 72, 0, 1.0) ** 1.5; // [0.0, 1.0]
     const maxLength = 0.2 / (1.0 + 19 * percent); // [0.01, 0.2]
     return (1.0 - currentGain / this.maxGain) * maxLength;
   }
 
-  /**
-   * @return {number} time to cool down
-   */
+  // Time in seconds to reach no volume
   private getDecayLength(currentGain: number): number {
     const percent = clamp((this.pitch + 36) / 72, 0, 1.0) ** 1.5; // [0.0, 1.0]
     const maxLength = 0.5 / (1.0 + 19 * percent); // [0.025, 0.5]
