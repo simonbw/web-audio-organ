@@ -34,6 +34,7 @@ export default class NotesController extends React.Component<Props> {
       if (note !== null) {
         this.keysDown[note] = true;
         this.props.play(note);
+        event.preventDefault();
       }
     }
   };
@@ -43,6 +44,7 @@ export default class NotesController extends React.Component<Props> {
     if (note !== null) {
       this.keysDown[note] = false;
       this.props.stop(note);
+      event.preventDefault();
     }
   };
 

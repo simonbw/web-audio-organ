@@ -22,6 +22,7 @@ export class Ranks extends React.Component<Props> {
       const rank = keyToRank(event.code);
       if (rank !== null) {
         this.props.toggleRank(rank);
+        event.preventDefault();
       }
     }
   };

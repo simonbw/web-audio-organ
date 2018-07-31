@@ -24145,6 +24145,7 @@ class Ranks extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                 const rank = Object(__WEBPACK_IMPORTED_MODULE_3__keyboard__["d" /* keyToRank */])(event.code);
                 if (rank !== null) {
                     this.props.toggleRank(rank);
+                    event.preventDefault();
                 }
             }
         };
@@ -24252,6 +24253,7 @@ class NotesController extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Comp
                 if (note !== null) {
                     this.keysDown[note] = true;
                     this.props.play(note);
+                    event.preventDefault();
                 }
             }
         };
@@ -24260,6 +24262,7 @@ class NotesController extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Comp
             if (note !== null) {
                 this.keysDown[note] = false;
                 this.props.stop(note);
+                event.preventDefault();
             }
         };
         this.onMouseUp = (event) => {
